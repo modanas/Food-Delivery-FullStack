@@ -1,5 +1,5 @@
 import "./Navbar.css";
-import { assets } from "../assets/frontend_assets/assets";
+import { assets } from "../../assets/assets";
 import { useState } from "react";
 
 const Navbar = () => {
