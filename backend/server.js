@@ -16,6 +16,7 @@ connectDB();
 
 // api endpoints
 app.use("/api/food", foodRouter)
+app.use("/images", express.static("uploads"))
 
 app.get("/", (req, res) => {
  res.send("API Working")
@@ -25,4 +26,4 @@ app.listen(port, () => {
  console.log(`Server started on http://localhost:${port}`)
 })
 
-//mongodb+srv://<db_username>:<db_password>@cluster0.snrgf.mongodb.net/?
+//mongodb+srv://modanas:6291799667@cluster0.snrgf.mongodb.net/?
