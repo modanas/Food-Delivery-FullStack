@@ -14,15 +14,23 @@ const StoreContextProvider = (props) => {
 		} else {
 			setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
 		}
-		if(token) {
-			await axios.post(url+"/api/cart/add", {itemId}, {headers : {token}})
+		if (token) {
+			await axios.post(
+				url + "/api/cart/add",
+				{ itemId },
+				{ headers: { token } }
+			);
 		}
 	};
 
 	const removeFromCart = async (itemId) => {
 		setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
-		if(token) {
-			await axios.post(url+"/api/cart/remove", {itemId}, {headers : {token}})
+		if (token) {
+			await axios.post(
+				url + "/api/cart/remove",
+				{ itemId },
+				{ headers: { token } }
+			);
 		}
 	};
 
@@ -39,36 +47,38 @@ const StoreContextProvider = (props) => {
 	};
 
 	const fetchFoodList = async () => {
-		const response = await axios.get(url+"/api/food/list");
+		const response = await axios.get(url + "/api/food/list");
 		setFoodList(response.data.data);
-	}
+	};
 
 	const loadCartData = async () => {
-		const response = await axios.post(url+"/api/cart/get", {}, {headers : {token}});
+		const response = await axios.post(
+			url + "/api/cart/get",
+			{},
+			{ headers: { token } }
+		);
 		setCartItems(response.data.cartData);
-	}
-
+	};
 
 	//if we reload we don't get logout
 	useEffect(() => {
 		async function loadData() {
 			await fetchFoodList();
-			if(localStorage.getItem("token")){
+			if (localStorage.getItem("token")) {
 				setToken(localStorage.getItem("token"));
 				// await loadCartData(localStorage.getItem("token"));
 			}
 		}
 		loadData();
-	},[])
+	}, []);
 
-	
-		// Fetch cart data when token is available
-		useEffect(() => {
-			if (token) {
-				loadCartData();
-			}
-		}, [token]);
-		
+	// Fetch cart data when token is available
+	useEffect(() => {
+		if (token) {
+			loadCartData();
+		}
+	}, [token]);
+
 	const contextValue = {
 		food_list,
 		cartItems,

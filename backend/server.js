@@ -3,7 +3,9 @@ import cors from "cors";
 import { connectDB } from "./config/db.js";
 import foodRouter from "./routes/foodRoutes.js";
 import userRouter from "./routes/userRoutes.js";
+import cartRouter from "./routes/cartRoutes.js"
 import dotenv from "dotenv";
+import orderRouter from "./routes/orderRoutes.js";
 dotenv.config();
 
 process.env.JWT_SECRET = "#random_secret";
@@ -23,6 +25,8 @@ connectDB();
 app.use("/api/food", foodRouter)
 app.use("/images", express.static("uploads"))
 app.use("/api/user", userRouter)
+app.use("/api/cart",cartRouter)
+app.use("/api/order", orderRouter)
 
 app.get("/", (req, res) => {
  res.send("API Working")
